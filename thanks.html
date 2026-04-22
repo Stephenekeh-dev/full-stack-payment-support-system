@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thank You | Open Heaven Sanctuary</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/hero.css" />
+    <link rel="stylesheet" href="css/site-footer.css" />
+    <style>
+        .thanks-card {
+          max-width: 480px;
+          margin: 60px auto;
+          background: #fff;
+          border-radius: 14px;
+          padding: 40px 30px;
+          text-align: center;
+          box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+          color: #333;
+        }
+        .thanks-card .checkmark {
+          font-size: 3.5rem;
+          color: #22c55e;
+          margin-bottom: 16px;
+        }
+        .thanks-card h1 { font-size: 1.8rem; margin-bottom: 10px; }
+        .thanks-card p  { color: #666; line-height: 1.6; }
+        .thanks-card .amount-badge {
+          display: inline-block;
+          background: #f0fdf4;
+          color: #15803d;
+          border: 1px solid #86efac;
+          border-radius: 999px;
+          padding: 6px 20px;
+          font-weight: 700;
+          font-size: 1.1rem;
+          margin: 16px 0;
+        }
+        .thanks-card .ref-text {
+          font-size: 0.8rem;
+          color: #aaa;
+          margin-top: 20px;
+          word-break: break-all;
+        }
+        .back-btn {
+          display: inline-block;
+          margin-top: 24px;
+          padding: 10px 28px;
+          background: #333;
+          color: #fff;
+          border-radius: 8px;
+          text-decoration: none;
+          font-size: 0.95rem;
+        }
+        .back-btn:hover { background: #000; }
+    </style>
+</head>
+
+<body>
+<div class="top-header">
+    <img src="images/logoimg.png" alt="Open Heaven Sanctuary Logo" class="school-logo" />
+    <div class="school-info">
+        <h1>Open Heaven Sanctuary</h1>
+        <h3>INC</h3>
+        <p>Divine Speed Restoration Citadel</p>
+    </div>
+</div>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="mobile-menu-icon" id="menu-toggle">&#9776;</div>
+        <ul class="nav-menu" id="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="prayer.html">Prayer Infor</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="message.html">Message</a></li>
+            <li><a href="gallary.html">Gallary</a></li>
+            <li><a href="support.html">Support</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div id="hero-container">
+    <section class="hero-section support-hero">
+        <div class="thanks-card">
+            <div class="checkmark">&#10003;</div>
+            <h1>God Bless You!</h1>
+            <p>Your donation has been received and recorded. Thank you for supporting the ministry.</p>
+
+            <div class="amount-badge" id="amount-display">₦–</div>
+
+            <p>A receipt has been sent to your email via Paystack.</p>
+
+            <p class="ref-text" id="ref-display"></p>
+
+            <a href="index.html" class="back-btn">Return Home</a>
+        </div>
+    </section>
+</div>
+
+<footer class="site-footer">
+    <div class="footer-content">
+        <p class="footer-slogan">Divine Speed Restoration Citadel</p>
+        <p class="footer-note">All Right Reserved &reg; 2025 @ DevStackConsulting.com.ng</p>
+    </div>
+</footer>
+
+<script>
+    document.getElementById('menu-toggle')
+      .addEventListener('click', () => {
+        document.getElementById('nav-menu').classList.toggle('show');
+      });
+
+    // Read query params set by the payment callback
+    const params = new URLSearchParams(window.location.search);
+    const amount = params.get("amount");
+    const ref    = params.get("ref");
+
+    if (amount) {
+      document.getElementById("amount-display").textContent =
+        "₦" + Number(amount).toLocaleString("en-NG");
+    }
+    if (ref) {
+      document.getElementById("ref-display").textContent = "Reference: " + ref;
+    }
+</script>
+</body>
+</html>

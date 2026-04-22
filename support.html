@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support Us | Open Heaven Sanctuary</title>
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/hero.css" />
+  <link rel="stylesheet" href="css/site-footer.css" />
+  <link rel="stylesheet" href="css/support.css" />
+</head>
+
+<body>
+
+<div class="top-header">
+  <img src="images/logoimg.png" alt="Open Heaven Sanctuary Logo" class="school-logo" />
+  <div class="school-info">
+    <h1>Open Heaven Sanctuary</h1>
+    <h3>INC</h3>
+    <p>Divine Speed Restoration Citadel</p>
+  </div>
+</div>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="mobile-menu-icon" id="menu-toggle">&#9776;</div>
+    <ul class="nav-menu" id="nav-menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="prayer.html">Prayer Infor</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="message.html">Message</a></li>
+      <li><a href="gallary.html">Gallary</a></li>
+      <li><a href="support.html" class="active">Support</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div id="hero-container">
+  <section class="hero-section support-hero">
+    <div class="support-card">
+      <h1>Support the Ministry</h1>
+      <p>Your generosity helps spread the gospel and restore lives.</p>
+
+      <form class="payment-form" onsubmit="handleDonate(event)">
+
+        <div class="form-group">
+          <label for="fullname">Full Name</label>
+          <input type="text" id="fullname" placeholder="Pastor Joel Keke" required />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="example@email.com" required />
+        </div>
+
+        <div class="form-group">
+          <label for="amount">Amount (₦)</label>
+          <input type="number" id="amount" placeholder="5000" min="1000" required />
+        </div>
+
+        <div id="form-error" class="payment-message error" style="display:none;"></div>
+
+        <button type="submit" class="pay-btn">Support Now</button>
+
+        <div class="secure-icons">
+          <img src="images/paystack.png" alt="Paystack" />
+          <img src="images/visa.png" alt="Visa" />
+          <img src="images/mastercard.png" alt="Mastercard" />
+          <img src="images/verve.png" alt="Verve" />
+        </div>
+
+      </form>
+    </div>
+  </section>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-content">
+    <p class="footer-slogan">Divine Speed Restoration Citadel</p>
+    <p class="footer-note">All Right Reserved &reg; 2025 @ DevStackConsulting.com.ng</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('menu-toggle')
+    .addEventListener('click', () =>
+      document.getElementById('nav-menu').classList.toggle('show'));
+
+  function handleDonate(e) {
+    e.preventDefault();
+
+    const name   = document.getElementById("fullname").value.trim();
+    const email  = document.getElementById("email").value.trim();
+    const amount = parseInt(document.getElementById("amount").value, 10);
+    const errEl  = document.getElementById("form-error");
+
+    if (!name || !email || !amount || amount < 1000) {
+      errEl.textContent = "Please enter a valid name, email, and amount (₦1,000 minimum).";
+      errEl.style.display = "block";
+      return;
+    }
+
+    errEl.style.display = "none";
+
+    // Store donor data and redirect to the payment status page
+    sessionStorage.setItem("ohs_donor", JSON.stringify({
+      donorName:   name,
+      email:       email,
+      amountNaira: amount
+    }));
+
+    window.location.href = "payment-status.html";
+  }
+</script>
+
+</body>
+</html>

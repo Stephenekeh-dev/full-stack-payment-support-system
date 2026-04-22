@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Open Heaven Sanctuary — Contact</title>
+
+  <!-- CSS Files (keep your existing structure) -->
+  <link rel="stylesheet" href="css/contact.css" />
+  <link rel="stylesheet" href="css/contact-form.css" />
+  <link rel="stylesheet" href="css/prayer-section.css" />
+  <link rel="stylesheet" href="css/gallary.css" />
+  <link rel="stylesheet" href="css/hero.css" />
+  <link rel="stylesheet" href="css/info-section.css" />
+  <link rel="stylesheet" href="css/core-values-section.css" />
+  <link rel="stylesheet" href="css/history-section.css" />
+  <link rel="stylesheet" href="css/contact-info-section.css" />
+  <link rel="stylesheet" href="css/school-features.css" />
+  <link rel="stylesheet" href="css/site-footer.css" />
+</head>
+
+<body>
+
+<!-- =======================
+        TOP HEADER
+=========================== -->
+<div class="top-header">
+  <img src="images/logoimg.png" alt="Open Heaven Sanctuary Logo" class="school-logo" />
+  <div class="school-info">
+    <h1>Open Heaven Sanctuary</h1>
+    <h3>INC</h3>
+    <p>Divine Speed Restoration Citadel</p>
+  </div>
+</div>
+
+<!-- =======================
+        NAVIGATION BAR
+=========================== -->
+<nav class="navbar">
+  <div class="nav-container">
+
+    <div class="mobile-menu-icon" id="menu-toggle">&#9776;</div>
+
+    <ul class="nav-menu" id="nav-menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="prayer.html">Prayer Infor</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+      <li><a href="message.html">Message</a></li>
+      <li><a href="gallary.html">Gallary</a></li>
+      
+      <a href="support.html">Support</a>
+     
+    </ul>
+
+  </div>
+</nav>
+
+<!-- =======================
+        HERO + CONTACT CONTENT
+=========================== -->
+<div id="hero-container">
+
+  <!-- Contact Hero -->
+  <section class="hero-section contact-hero">
+    <div class="background-slideshow"></div>
+    <div class="hero-content">
+      <h1>Contact Us</h1>
+      <p>We’d love to hear from you. Please send us your message below.</p>
+    </div>
+  </section>
+
+  <!-- Contact Info & Form -->
+  <section class="contact-info-section">
+    <div class="contact-info-container">
+      <h2>Get In Touch With Us</h2>
+
+      <div class="contact-details">
+        <div class="contact-box">
+          <p><strong>Address:</strong><br>No: 79/81 Akukwu Street, Off 61 Iheorji Avenue,<br>Aba, Abia State, Nigeria</p>
+        </div>
+        <div class="contact-box">
+          <p><strong>Branch:</strong><br>Port-Harcourt, Rivers State</p>
+        </div>
+        <div class="contact-box">
+          <p><strong>Mobile:</strong><br>080XXXXXXXXX</p>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="contact-form-wrapper">
+        <h3>Send Us a Message</h3>
+        <form id="contact-form" class="contact-form-container" novalidate>
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your full name" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required />
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
+          </div>
+
+          <button type="submit" class="send-btn">Send Message</button>
+        </form>
+
+        <div id="form-response" class="form-response" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- =======================
+        FOOTER
+=========================== -->
+<footer class="site-footer">
+  <div class="footer-content">
+    <p class="footer-slogan">Divine Speed Restoration Citadel</p>
+
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="prayer.html">Prayer Infor</a>
+      <a href="contact.html">Contact</a>
+      <a href="message.html">Message</a>
+      <a href="gallary.html">Gallary</a>
+      <a href="video.html">Video</a>
+      <a href="support.html">Support</a>
+      <a href="thanks.html">Thanks Giving</a>
+    </div>
+
+    <p class="footer-note">
+      All Right Reserved, Copyright &reg; 2025 @ DevStackConsulting.com.ng<br>
+      Powered by <strong>DevStackConsulting</strong>
+    </p>
+  </div>
+</footer>
+
+<!-- =======================
+      JAVASCRIPT (MOBILE MENU + FORM)
+=========================== -->
+<script>
+  // Mobile menu toggle (same as before)
+  const toggleButton = document.getElementById('menu-toggle');
+  const navMenu = document.getElementById('nav-menu');
+
+  if (toggleButton && navMenu) {
+    toggleButton.addEventListener('click', () => {
+      navMenu.classList.toggle('show');
+    });
+  }
+
+  // Contact form handler (client-side feedback)
+  const contactForm = document.getElementById('contact-form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const responseDiv = document.getElementById('form-response');
+
+      if (name && email && message) {
+        responseDiv.innerHTML = '<p style="color:green;">Thank you, ' + escapeHtml(name) + '! Your message has been sent successfully.</p>';
+        contactForm.reset();
+      } else {
+        responseDiv.innerHTML = '<p style="color:red;">Please fill out all fields before sending.</p>';
+      }
+    });
+  }
+
+  // Small helper to avoid injecting raw text
+  function escapeHtml(text) {
+    return text
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,399 @@
+/* ============================================================
+   MASTER CSS FILE FOR OPEN HEAVEN SANCTUARY WEBSITE
+   Contains: Header, Navbar, Hero, Prayer Page, Footer, Responsive
+   ============================================================ */
+
+
+/* ============================================================
+   TOP HEADER
+============================================================ */
+.top-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  text-align: left;
+  background-color: #ffffff;
+  font-family: 'Georgia', serif;
+  color: #222;
+}
+
+.school-logo {
+  width: 100px;
+  height: auto;
+  margin: 0;
+}
+
+.school-info {
+  margin-left: 10px;
+}
+
+.school-info h1 {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.school-info h3 {
+  font-size: 1.2rem;
+  font-style: italic;
+  margin: 0;
+}
+
+.school-info p {
+  font-size: 0.9rem;
+  color: #4f9948;
+  margin: 0;
+}
+
+
+/* ============================================================
+   NAVBAR
+============================================================ */
+.navbar {
+  background-color: #4f9943;
+  padding: 0 20px;
+  font-family: 'Georgia', serif;
+  height: 60px;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 60px;
+  position: relative;
+}
+
+.nav-menu {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-menu li {
+  margin: 0;
+}
+
+.nav-menu a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 6px 10px;
+  transition: color 0.3s, border-bottom 0.3s;
+}
+
+.nav-menu a:hover {
+  color: #ffffff;
+  border-bottom: 2px solid white;
+}
+
+.nav-menu a.active {
+  color: #ffffff;
+  font-weight: bold;
+  border-bottom: 3px solid white;
+}
+
+/* Mobile hamburger icon */
+.mobile-menu-icon {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #fff;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+}
+
+
+/* ============================================================
+   DEFAULT HERO SECTION (SLIDESHOW VERSION)
+============================================================ */
+.hero-section {
+  position: relative;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  font-family: 'Georgia', serif;
+  color: white;
+}
+
+.background-slideshow {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  animation: slideImages 16s infinite;
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 20px 30px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.hero-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+}
+
+@keyframes slideImages {
+  0% { background-image: url('../images/bg1.jpg'); }
+  25% { background-image: url('../images/bg2.jpg'); }
+  50% { background-image: url('../images/stud.jpg'); }
+  75% { background-image: url('../images/stu.jpg'); }
+  100% { background-image: url('../images/bg1.jpg'); }
+}
+
+
+/* ============================================================
+   PRAYER PAGE VIDEO HERO
+============================================================ */
+.prayer-hero {
+  position: relative;
+  height: 70vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+}
+
+.background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  filter: brightness(70%);
+}
+
+.prayer-hero .hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* ============================================================
+   PRAYER POINTS SECTION
+============================================================ */
+.prayer-points-section {
+  background: #f8f9fa;
+  padding: 60px 20px;
+  font-family: 'Georgia', serif;
+}
+
+.prayer-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+}
+
+.prayer-container h2 {
+  color: #0077cc;
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 1.6rem;
+}
+
+.prayer-container ol {
+  padding-left: 25px;
+  color: #333;
+}
+
+.prayer-container li {
+  margin-bottom: 15px;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+#loading-message {
+  text-align: left;              /* FIXES ZIGZAG */
+  margin-top: 10px;
+  color: #555;
+  line-height: 1.8;
+  white-space: pre-wrap;         /* Better than pre-line */
+  font-size: 1.05rem;
+}
+
+
+/* ============================================================
+   FOOTER
+============================================================ */
+.site-footer {
+  background-color: #1a1a1a;
+  color: #f0f0f0;
+  padding: 30px 20px;
+  text-align: center;
+  font-family: 'Georgia', serif;
+  margin-top: 40px;
+}
+
+.footer-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  opacity: 0;
+  animation: fadeInUp 1.2s ease forwards;
+}
+
+.footer-slogan {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: #d1eaff;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 20px;
+  margin-bottom: 15px;
+}
+
+.footer-links a {
+  color: #f0f0f0;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: #4ab3ff;
+}
+
+.footer-note {
+  font-size: 0.85rem;
+  color: #cccccc;
+  line-height: 1.5;
+}
+
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ============================================================
+   RESPONSIVE STYLES
+============================================================ */
+
+/* Header */
+@media screen and (max-width: 600px) {
+  .top-header {
+    flex-direction: column;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .school-logo {
+    width: 80px;
+  }
+
+  .school-info {
+    margin-left: 0;
+    margin-top: 8px;
+  }
+
+  .school-info h1 {
+    font-size: 1.3rem;
+  }
+
+  .school-info h3 {
+    font-size: 1.1rem;
+  }
+
+  .school-info p {
+    font-size: 0.85rem;
+  }
+}
+
+/* Navbar Mobile */
+@media (max-width: 768px) {
+  .mobile-menu-icon {
+    display: block;
+  }
+
+  .nav-menu {
+    flex-direction: column;
+    background-color: #4f9943;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    min-width: 150px;
+    padding: 10px 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+
+    transform: translateX(100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s ease;
+  }
+
+  .nav-menu.show {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-menu li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-menu a {
+    padding: 8px 0;
+    color: #fff;
+    display: block;
+  }
+
+  /* Footer */
+  .footer-links {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .footer-slogan {
+    font-size: 1.05rem;
+  }
+
+  .footer-note {
+    font-size: 0.8rem;
+  }
+
+  /* Prayer container */
+  .prayer-container {
+    padding: 25px;
+  }
+
+  .prayer-container h2 {
+    font-size: 1.4rem;
+  }
+}

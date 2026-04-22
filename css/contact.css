@@ -1,0 +1,441 @@
+/* =======================
+       Top Header
+======================== */
+.top-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  text-align: left;
+  background-color: #ffffff;
+  font-family: 'Georgia', serif;
+  color: #222;
+}
+
+.school-logo {
+  width: 100px;
+  height: auto;
+  margin: 0;
+}
+
+.school-info {
+  margin-left: 10px;
+}
+
+.school-info h1 {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.school-info h3 {
+  font-size: 1.2rem;
+  font-style: italic;
+  margin: 0;
+}
+
+.school-info p {
+  font-size: 0.9rem;
+  color: #4f9948;
+  margin: 0;
+}
+
+/* =======================
+        Navbar
+======================== */
+.navbar {
+  background-color: #4f9943;
+  padding: 0 20px;
+  font-family: 'Georgia', serif;
+  height: 60px;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 60px;
+  position: relative;
+}
+
+.nav-menu {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-menu li {
+  margin: 0;
+}
+
+.nav-menu a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 6px 10px;
+  transition: color 0.3s, border-bottom 0.3s;
+}
+
+.nav-menu a:hover {
+  color: #ffffff;
+  border-bottom: 2px solid white;
+}
+
+.nav-menu a.active {
+  color: #ffffff;
+  font-weight: bold;
+  border-bottom: 3px solid white;
+}
+
+/* Mobile hamburger icon */
+.mobile-menu-icon {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #fff;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+}
+
+/* =======================
+        Hero Section
+======================== */
+.hero-section {
+  position: relative;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  font-family: 'Georgia', serif;
+  color: white;
+}
+
+.background-slideshow {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  animation: slideImages 16s infinite;
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 20px 30px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.hero-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+}
+
+@keyframes slideImages {
+  0%   { background-image: url('../images/bg1.jpg'); }
+  25%  { background-image: url('../images/bg2.jpg'); }
+  50%  { background-image: url('../images/stud.jpg'); }
+  75%  { background-image: url('../images/stu.jpg'); }
+  100% { background-image: url('../images/bg1.jpg'); }
+}
+
+/* =======================
+  Contact Info Section
+======================== */
+.contact-info-section {
+  background-color: #f4f4f4;
+  padding: 30px 15px;
+  font-family: 'Georgia', serif;
+}
+
+.contact-info-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+  animation: fadeInUp 1.2s ease forwards;
+  opacity: 0;
+}
+
+.contact-info-container h2 {
+  font-size: 1.6rem;
+  color: #0077cc;
+  margin-bottom: 20px;
+}
+
+.contact-details {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  text-align: left;
+}
+
+.contact-box {
+  flex: 1;
+  min-width: 250px;
+  padding: 10px 15px;
+  background-color: #ffffff;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* =======================
+     Contact Form Section
+======================== */
+.contact-form-wrapper {
+  padding-top: 30px;
+}
+
+.contact-form-container {
+  background: #ffffff;
+  padding: 40px;
+  max-width: 600px;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+}
+
+.contact-form-container h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: border-color 0.3s ease;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.send-btn {
+  background: #007bff;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.send-btn:hover {
+  background: #0056b3;
+}
+
+.form-response {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 15px;
+}
+
+/* =======================
+       Footer
+======================== */
+.site-footer {
+  background-color: #1a1a1a;
+  color: #f0f0f0;
+  padding: 30px 20px;
+  text-align: center;
+  font-family: 'Georgia', serif;
+  margin-top: 40px;
+}
+
+.footer-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  animation: fadeInUp 1.2s ease forwards;
+  opacity: 0;
+}
+
+.footer-slogan {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: #d1eaff;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 20px;
+  margin-bottom: 15px;
+}
+
+.footer-links a {
+  color: #f0f0f0;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: #4ab3ff;
+}
+
+.footer-note {
+  font-size: 0.85rem;
+  color: #cccccc;
+  line-height: 1.5;
+}
+
+/* =======================
+      Animations
+======================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =======================
+      Responsive Layouts
+======================== */
+
+/* Top header responsiveness */
+@media screen and (max-width: 600px) {
+  .top-header {
+    flex-direction: column;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .school-logo {
+    width: 80px;
+  }
+
+  .school-info {
+    margin-left: 0;
+    margin-top: 8px;
+  }
+
+  .school-info h1 {
+    font-size: 1.3rem;
+  }
+
+  .school-info h3 {
+    font-size: 1.1rem;
+  }
+
+  .school-info p {
+    font-size: 0.85rem;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .footer-slogan {
+    font-size: 1.05rem;
+  }
+
+  .footer-note {
+    font-size: 0.8rem;
+  }
+}
+
+/* Navbar & hero responsiveness */
+@media (max-width: 768px) {
+  .mobile-menu-icon {
+    display: block;
+  }
+
+  .nav-menu {
+    flex-direction: column;
+    background-color: #4f9943;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    min-width: 150px;
+    padding: 10px 0;
+    border-radius: 5px;
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.2);
+    transform: translateX(100%);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .nav-menu.show {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-menu li {
+    padding: 5px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .nav-menu a {
+    color: #fff;
+    font-size: 1rem;
+    padding: 8px 0;
+    display: block;
+  }
+
+  .contact-details {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .contact-box {
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+  }
+
+  .contact-info-container h2 {
+    font-size: 1.4rem;
+  }
+}

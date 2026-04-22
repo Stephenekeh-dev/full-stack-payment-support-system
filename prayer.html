@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prayer Points | Open Heaven Sanctuary</title>
+
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/prayer-page.css" />
+  <link rel="stylesheet" href="css/site-footer.css" />
+</head>
+
+<body>
+
+  <!-- ======================= TOP HEADER =========================== -->
+  <div class="top-header">
+    <img src="images/logoimg.png" alt="Open Heaven Sanctuary Logo" class="school-logo" />
+
+    <div class="school-info">
+      <h1>Open Heaven Sanctuary</h1>
+      <h3>INC</h3>
+      <p>Divine Speed Restoration Citadel</p>
+    </div>
+  </div>
+
+  <!-- ======================= NAVIGATION BAR =========================== -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="mobile-menu-icon" id="menu-toggle">&#9776;</div>
+
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="prayer.html" class="active">Prayer Infor</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="message.html">Message</a></li>
+        <li><a href="gallary.html">Gallary</a></li>
+       
+      <a href="support.html">Support</a>
+     
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ======================= HERO SECTION (VIDEO) =========================== -->
+  <div id="hero-container">
+    <section class="hero-section prayer-hero">
+
+      <!-- Background Video -->
+      <video autoplay muted loop playsinline class="background-video">
+        <source src="images/church.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      <div class="hero-content">
+        <h1>Prayer Points</h1>
+        <p>Join us in prayer and experience divine restoration.</p>
+      </div>
+
+    </section>
+
+    <!-- ======================= PRAYER POINTS LIST =========================== -->
+    <section class="prayer-points-section">
+      <div class="prayer-container">
+        <h2>Prayer Points</h2>
+
+        <ol id="prayer-list">
+          <!-- Loaded dynamically -->
+        </ol>
+
+        <p id="loading-message">Loading prayer points...</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- ======================= FOOTER =========================== -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p class="footer-slogan">Divine Speed Restoration Citadel</p>
+
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="prayer.html">Prayer Infor</a>
+        <a href="contact.html">Contact</a>
+        <a href="message.html">Message</a>
+        <a href="gallary.html">Gallary</a>
+        <a href="video.html">Video</a>
+        <a href="support.html">Support</a>
+        <a href="thanks.html">Thanks Giving</a>
+      </div>
+
+      <p class="footer-note">
+        All Right Reserved, Copyright &reg; 2025 @ DevStackConsulting.com.ng<br>
+        Powered by <strong>DevStackConsulting</strong>
+      </p>
+    </div>
+  </footer>
+
+  <!-- ======================= JAVASCRIPT =========================== -->
+  <script>
+    // Mobile menu toggle
+    const toggleButton = document.getElementById('menu-toggle');
+    const navMenu = document.getElementById('nav-menu');
+
+    toggleButton.addEventListener('click', () => {
+      navMenu.classList.toggle('show');
+    });
+
+    // Load prayer points from backend API
+    document.addEventListener('DOMContentLoaded', function () {
+      const listContainer = document.getElementById('prayer-list');
+      const loadingMessage = document.getElementById('loading-message');
+
+      fetch('https://your-backend-domain.com/api/prayers/')
+        .then(response => {
+          if (!response.ok) throw new Error('Network response was not ok');
+          return response.json();
+        })
+        .then(data => {
+          loadingMessage.style.display = 'none';
+
+          if (data.length === 0) {
+            listContainer.innerHTML = '<p>No prayer points available at the moment.</p>';
+            return;
+          }
+
+          data.forEach((prayer, index) => {
+            const li = document.createElement('li');
+            li.textContent = prayer.title || prayer.text || `Prayer point ${index + 1}`;
+            listContainer.appendChild(li);
+          });
+        })
+        .catch(error => {
+          loadingMessage.textContent = 'Failed to load prayer points. Please try again later.';
+          console.error('Error loading prayer points:', error);
+        });
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Status | Open Heaven Sanctuary</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/hero.css" />
+    <link rel="stylesheet" href="css/site-footer.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+
+    <style>
+        :root {
+          --gold:    #c9a84c;
+          --gold-lt: #f0d080;
+          --dark:    #0d0d0d;
+          --card-bg: #1a1a1a;
+          --success: #22c55e;
+          --error:   #ef4444;
+          --pending: #f59e0b;
+          --text:    #e8e0d0;
+          --muted:   #888;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+          font-family: 'Lato', sans-serif;
+          background: var(--dark);
+          color: var(--text);
+          min-height: 100vh;
+        }
+
+        /* ── Page wrapper ── */
+        .status-page {
+          min-height: 80vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 40px 16px;
+          background:
+            radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.07) 0%, transparent 60%),
+            radial-gradient(ellipse at 80% 20%, rgba(201,168,76,0.05) 0%, transparent 50%),
+            var(--dark);
+        }
+
+        /* ── Main card ── */
+        .status-card {
+          width: 100%;
+          max-width: 520px;
+          background: var(--card-bg);
+          border: 1px solid rgba(201,168,76,0.2);
+          border-radius: 16px;
+          padding: 40px 36px;
+          box-shadow: 0 24px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
+          animation: cardIn 0.5s cubic-bezier(0.22,1,0.36,1) both;
+        }
+
+        @keyframes cardIn {
+          from { opacity:0; transform: translateY(28px); }
+          to   { opacity:1; transform: translateY(0); }
+        }
+
+        /* ── Header ── */
+        .card-header {
+          text-align: center;
+          margin-bottom: 32px;
+        }
+
+        .card-header h2 {
+          font-family: 'Cinzel', serif;
+          font-size: 1.4rem;
+          color: var(--gold);
+          letter-spacing: 0.06em;
+          margin-bottom: 6px;
+        }
+
+        .card-header p {
+          font-size: 0.88rem;
+          color: var(--muted);
+        }
+
+        /* ── Step tracker ── */
+        .steps {
+          display: flex;
+          flex-direction: column;
+          gap: 0;
+          margin-bottom: 32px;
+        }
+
+        .step {
+          display: flex;
+          align-items: flex-start;
+          gap: 16px;
+          padding: 14px 0;
+          border-bottom: 1px solid rgba(255,255,255,0.05);
+          animation: stepIn 0.4s ease both;
+        }
+
+        .step:last-child { border-bottom: none; }
+
+        @keyframes stepIn {
+          from { opacity:0; transform: translateX(-12px); }
+          to   { opacity:1; transform: translateX(0); }
+        }
+
+        /* Staggered entrance */
+        .step:nth-child(1) { animation-delay: 0.1s; }
+        .step:nth-child(2) { animation-delay: 0.2s; }
+        .step:nth-child(3) { animation-delay: 0.3s; }
+        .step:nth-child(4) { animation-delay: 0.4s; }
+
+        /* ── Step icon ── */
+        .step-icon {
+          width: 38px;
+          height: 38px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1rem;
+          flex-shrink: 0;
+          transition: all 0.4s ease;
+        }
+
+        .step-icon.idle    { background: rgba(255,255,255,0.06); color: var(--muted); }
+        .step-icon.active  { background: rgba(245,158,11,0.15);  color: var(--pending); border: 1px solid var(--pending); }
+        .step-icon.done    { background: rgba(34,197,94,0.15);   color: var(--success); border: 1px solid rgba(34,197,94,0.4); }
+        .step-icon.failed  { background: rgba(239,68,68,0.15);   color: var(--error);   border: 1px solid rgba(239,68,68,0.4); }
+
+        /* spinning loader */
+        .step-icon.active .spin {
+          display: inline-block;
+          animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ── Step text ── */
+        .step-body { flex: 1; }
+
+        .step-title {
+          font-size: 0.92rem;
+          font-weight: 700;
+          color: var(--text);
+          margin-bottom: 3px;
+        }
+
+        .step-desc {
+          font-size: 0.82rem;
+          color: var(--muted);
+          line-height: 1.5;
+          transition: all 0.3s;
+        }
+
+        /* ── Response block ── */
+        .response-block {
+          background: #111;
+          border: 1px solid rgba(201,168,76,0.2);
+          border-radius: 10px;
+          padding: 16px 18px;
+          margin-bottom: 24px;
+          display: none;
+          animation: fadeIn 0.4s ease;
+        }
+
+        .response-block.visible { display: block; }
+
+        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+        .response-block .rb-label {
+          font-size: 0.72rem;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+          color: var(--gold);
+          margin-bottom: 10px;
+          font-weight: 700;
+        }
+
+        .response-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          padding: 6px 0;
+          border-bottom: 1px solid rgba(255,255,255,0.04);
+          gap: 12px;
+        }
+
+        .response-row:last-child { border-bottom: none; }
+
+        .rr-key {
+          font-size: 0.78rem;
+          color: var(--muted);
+          min-width: 90px;
+        }
+
+        .rr-val {
+          font-size: 0.82rem;
+          color: var(--text);
+          text-align: right;
+          word-break: break-all;
+        }
+
+        .rr-val.good  { color: var(--success); font-weight: 700; }
+        .rr-val.warn  { color: var(--pending); font-weight: 700; }
+        .rr-val.bad   { color: var(--error);   font-weight: 700; }
+
+        /* ── Amount badge ── */
+        .amount-badge {
+          text-align: center;
+          margin-bottom: 24px;
+          display: none;
+        }
+
+        .amount-badge.visible { display: block; }
+
+        .amount-badge .amt {
+          font-family: 'Cinzel', serif;
+          font-size: 2.4rem;
+          color: var(--gold);
+          letter-spacing: 0.04em;
+        }
+
+        .amount-badge .amt-label {
+          font-size: 0.8rem;
+          color: var(--muted);
+          margin-top: 4px;
+        }
+
+        /* ── Action buttons ── */
+        .action-area {
+          display: flex;
+          gap: 10px;
+          margin-top: 4px;
+        }
+
+        .btn-primary {
+          flex: 1;
+          padding: 12px;
+          background: linear-gradient(135deg, var(--gold) 0%, #a07830 100%);
+          color: #0d0d0d;
+          font-family: 'Cinzel', serif;
+          font-size: 0.85rem;
+          font-weight: 700;
+          letter-spacing: 0.05em;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: opacity 0.2s, transform 0.1s;
+        }
+
+        .btn-primary:hover:not(:disabled) { opacity: 0.9; transform: translateY(-1px); }
+        .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        .btn-ghost {
+          padding: 12px 18px;
+          background: transparent;
+          color: var(--muted);
+          font-size: 0.82rem;
+          border: 1px solid rgba(255,255,255,0.1);
+          border-radius: 8px;
+          cursor: pointer;
+          transition: all 0.2s;
+          text-decoration: none;
+          display: flex;
+          align-items: center;
+        }
+
+        .btn-ghost:hover { color: var(--text); border-color: rgba(255,255,255,0.25); }
+
+        /* ── Final message banner ── */
+        .final-banner {
+          border-radius: 10px;
+          padding: 14px 18px;
+          margin-bottom: 20px;
+          display: none;
+          font-size: 0.88rem;
+          line-height: 1.5;
+          animation: fadeIn 0.4s ease;
+        }
+
+        .final-banner.visible { display: block; }
+        .final-banner.success { background: rgba(34,197,94,0.1);  border: 1px solid rgba(34,197,94,0.3);  color: #86efac; }
+        .final-banner.error   { background: rgba(239,68,68,0.1);  border: 1px solid rgba(239,68,68,0.3);  color: #fca5a5; }
+        .final-banner.info    { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3); color: #fde68a; }
+
+        /* ── Divider ── */
+        .divider {
+          height: 1px;
+          background: rgba(255,255,255,0.06);
+          margin: 24px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- TOP HEADER -->
+<div class="top-header">
+    <img src="images/logoimg.png" alt="Open Heaven Sanctuary Logo" class="school-logo" />
+    <div class="school-info">
+        <h1>Open Heaven Sanctuary</h1>
+        <h3>INC</h3>
+        <p>Divine Speed Restoration Citadel</p>
+    </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="mobile-menu-icon" id="menu-toggle">&#9776;</div>
+        <ul class="nav-menu" id="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="prayer.html">Prayer Infor</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="message.html">Message</a></li>
+            <li><a href="gallary.html">Gallary</a></li>
+            <li><a href="support.html" class="active">Support</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- STATUS PAGE -->
+<div class="status-page">
+    <div class="status-card">
+
+        <div class="card-header">
+            <h2>Payment Status</h2>
+            <p>Track your donation step by step</p>
+        </div>
+
+        <!-- ── Step Tracker ── -->
+        <div class="steps">
+
+            <div class="step" id="step-1">
+                <div class="step-icon idle" id="icon-1">①</div>
+                <div class="step-body">
+                    <div class="step-title">Form Submitted</div>
+                    <div class="step-desc" id="desc-1">Waiting for donor details…</div>
+                </div>
+            </div>
+
+            <div class="step" id="step-2">
+                <div class="step-icon idle" id="icon-2">②</div>
+                <div class="step-body">
+                    <div class="step-title">Reference Created</div>
+                    <div class="step-desc" id="desc-2">Backend will generate a unique payment reference.</div>
+                </div>
+            </div>
+
+            <div class="step" id="step-3">
+                <div class="step-icon idle" id="icon-3">③</div>
+                <div class="step-body">
+                    <div class="step-title">Payment Gateway</div>
+                    <div class="step-desc" id="desc-3">Paystack secure popup will open for payment.</div>
+                </div>
+            </div>
+
+            <div class="step" id="step-4">
+                <div class="step-icon idle" id="icon-4">④</div>
+                <div class="step-body">
+                    <div class="step-title">Payment Verified</div>
+                    <div class="step-desc" id="desc-4">Backend will confirm with Paystack servers.</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ── Backend Response Block ── -->
+        <div class="response-block" id="response-block">
+            <div class="rb-label">Backend Response</div>
+            <div class="response-row">
+                <span class="rr-key">success</span>
+                <span class="rr-val" id="rb-success">—</span>
+            </div>
+            <div class="response-row">
+                <span class="rr-key">reference</span>
+                <span class="rr-val" id="rb-reference">—</span>
+            </div>
+            <div class="response-row">
+                <span class="rr-key">status</span>
+                <span class="rr-val" id="rb-status">—</span>
+            </div>
+            <div class="response-row">
+                <span class="rr-key">channel</span>
+                <span class="rr-val" id="rb-channel">—</span>
+            </div>
+            <div class="response-row">
+                <span class="rr-key">message</span>
+                <span class="rr-val" id="rb-message">—</span>
+            </div>
+        </div>
+
+        <!-- ── Amount Badge (shown after success) ── -->
+        <div class="amount-badge" id="amount-badge">
+            <div class="amt" id="amount-display">₦0</div>
+            <div class="amt-label">Donation Received</div>
+        </div>
+
+        <!-- ── Final Banner ── -->
+        <div class="final-banner" id="final-banner"></div>
+
+        <div class="divider"></div>
+
+        <!-- ── Action Buttons ── -->
+        <div class="action-area">
+            <button class="btn-primary" id="pay-btn" onclick="startPayment()">
+                Proceed to Pay
+            </button>
+            <a href="support.html" class="btn-ghost">← Back</a>
+        </div>
+
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+    <div class="footer-content">
+        <p class="footer-slogan">Divine Speed Restoration Citadel</p>
+        <p class="footer-note">All Right Reserved &reg; 2025 @ DevStackConsulting.com.ng</p>
+    </div>
+</footer>
+
+<script>
+    // ── Config ──────────────────────────────────────────────────────────
+    const BACKEND_URL = "http://localhost:8080";
+
+    // ── Mobile nav ──────────────────────────────────────────────────────
+    document.getElementById('menu-toggle')
+      .addEventListener('click', () =>
+        document.getElementById('nav-menu').classList.toggle('show'));
+
+    // ── Read donor data passed via sessionStorage from support.html ─────
+    // support.html stores: { donorName, email, amountNaira } before redirecting here
+    let donorData = {};
+    try {
+      donorData = JSON.parse(sessionStorage.getItem("ohs_donor") || "{}");
+    } catch(_) {}
+
+    // If no data yet (user landed directly), show a notice
+    if (!donorData.email) {
+      setStep(1, 'active', '⟳', 'No donor data found. Please go back and fill in the form.');
+      document.getElementById('pay-btn').disabled = true;
+      showBanner('Please go back to the Support page and fill in your details first.', 'info');
+    } else {
+      setStep(1, 'done', '✓', `Ready: ${donorData.donorName} · ₦${Number(donorData.amountNaira).toLocaleString('en-NG')}`);
+    }
+
+    // ── Step helpers ────────────────────────────────────────────────────
+    function setStep(n, state, icon, desc) {
+      const iconEl = document.getElementById(`icon-${n}`);
+      const descEl = document.getElementById(`desc-${n}`);
+      iconEl.className = `step-icon ${state}`;
+      iconEl.innerHTML = state === 'active'
+        ? `<span class="spin">${icon}</span>`
+        : icon;
+      descEl.textContent = desc;
+    }
+
+    function showBanner(msg, type) {
+      const el = document.getElementById('final-banner');
+      el.textContent = msg;
+      el.className = `final-banner visible ${type}`;
+    }
+
+    function showResponseBlock(data) {
+      const block = document.getElementById('response-block');
+      block.classList.add('visible');
+
+      const successVal = document.getElementById('rb-success');
+      successVal.textContent = data.success ? 'true' : 'false';
+      successVal.className   = 'rr-val ' + (data.success ? 'good' : 'bad');
+
+      document.getElementById('rb-reference').textContent = data.reference || '—';
+
+      const statusEl = document.getElementById('rb-status');
+      statusEl.textContent = data.status || '—';
+      statusEl.className   = 'rr-val ' +
+        (data.status === 'SUCCESS' ? 'good' : data.status === 'FAILED' ? 'bad' : 'warn');
+
+      document.getElementById('rb-channel').textContent = data.channel || '—';
+      document.getElementById('rb-message').textContent = data.message || '—';
+    }
+
+    function showAmount(naira) {
+      const badge = document.getElementById('amount-badge');
+      badge.classList.add('visible');
+      document.getElementById('amount-display').textContent =
+        '₦' + Number(naira).toLocaleString('en-NG');
+    }
+
+    // ── Main payment flow ───────────────────────────────────────────────
+    async function startPayment() {
+      if (!donorData.email) return;
+
+      const btn = document.getElementById('pay-btn');
+      btn.disabled = true;
+
+      // ── Step 1: mark form done ───────────────────────────────────────
+      setStep(1, 'done', '✓', `${donorData.donorName} · ${donorData.email}`);
+
+      // ── Step 2: call backend /initialize ────────────────────────────
+      setStep(2, 'active', '⟳', 'Contacting server…');
+
+      let reference, publicKey;
+
+      try {
+        const [initRes, cfgRes] = await Promise.all([
+          fetch(`${BACKEND_URL}/api/payment/initialize`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(donorData)
+          }),
+          fetch(`${BACKEND_URL}/api/payment/config`)
+        ]);
+
+        const initData = await initRes.json();
+        const cfgData  = await cfgRes.json();
+
+        // ── Show the backend JSON response on screen ──────────────────
+        showResponseBlock({
+          success:   initData.success,
+          reference: initData.reference,
+          status:    'PENDING',
+          channel:   '—',
+          message:   initData.message
+        });
+
+        if (!initData.success) {
+          setStep(2, 'failed', '✕', initData.message || 'Server rejected the request.');
+          showBanner(initData.message || 'Could not create payment reference.', 'error');
+          btn.disabled = false;
+          return;
+        }
+
+        reference = initData.reference;
+        publicKey = cfgData.publicKey;
+
+        setStep(2, 'done', '✓',
+          `Reference: ${reference}`);
+
+      } catch (err) {
+        setStep(2, 'failed', '✕', 'Network error – is the backend running?');
+        showBanner('Could not reach the payment server. Please try again.', 'error');
+        btn.disabled = false;
+        return;
+      }
+
+      // ── Step 3: open Paystack popup ──────────────────────────────────
+      setStep(3, 'active', '⟳', 'Paystack popup is open. Complete your payment…');
+
+      const handler = PaystackPop.setup({
+        key:      publicKey,
+        email:    donorData.email,
+        amount:   donorData.amountNaira * 100,
+        currency: 'NGN',
+        ref:      reference,
+
+        metadata: {
+          custom_fields: [{
+            display_name:  'Donor Name',
+            variable_name: 'donor_name',
+            value:         donorData.donorName
+          }]
+        },
+
+        // ── Step 4: verify ─────────────────────────────────────────────
+        callback: async function(response) {
+          setStep(3, 'done', '✓', 'Payment submitted via Paystack.');
+          setStep(4, 'active', '⟳', 'Confirming with Paystack servers…');
+
+          try {
+            const verifyRes  = await fetch(
+              `${BACKEND_URL}/api/payment/verify/${response.reference}`
+            );
+            const verifyData = await verifyRes.json();
+
+            // Update the response block with full verify result
+            showResponseBlock(verifyData);
+
+            if (verifyData.success) {
+              setStep(4, 'done', '✓', 'Payment confirmed and recorded.');
+              showAmount(verifyData.amountNaira);
+              showBanner(verifyData.message ||
+                `Thank you! Your donation of ₦${verifyData.amountNaira} has been received. God bless you.`,
+                'success');
+              btn.textContent = 'Done ✓';
+
+              // Clear stored donor data
+              sessionStorage.removeItem('ohs_donor');
+
+              // Redirect to thanks page after a short delay
+              setTimeout(() => {
+                window.location.href =
+                  `thanks.html?ref=${verifyData.reference}&amount=${verifyData.amountNaira}`;
+              }, 3000);
+
+            } else {
+              setStep(4, 'failed', '✕', verifyData.message || 'Payment could not be verified.');
+              showBanner(verifyData.message || 'Payment failed. Please try again.', 'error');
+              btn.disabled = false;
+              btn.textContent = 'Try Again';
+            }
+
+          } catch (err) {
+            setStep(4, 'failed', '✕', 'Verification network error.');
+            showBanner('Could not verify payment. Please contact us with reference: ' + response.reference, 'error');
+            btn.disabled = false;
+          }
+        },
+
+        onClose: function() {
+          setStep(3, 'failed', '✕', 'Payment popup was closed.');
+          showBanner('Payment was cancelled. You can try again.', 'info');
+          btn.disabled = false;
+          btn.textContent = 'Try Again';
+        }
+      });
+
+      handler.openIframe();
+    }
+</script>
+
+</body>
+</html>

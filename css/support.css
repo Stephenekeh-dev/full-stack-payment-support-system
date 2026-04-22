@@ -1,0 +1,105 @@
+/* ========================
+    SUPPORT / PAYMENT PAGE
+======================== */
+
+.support-hero {
+  background: linear-gradient(
+      rgba(0, 0, 0, 0.65),
+      rgba(0, 0, 0, 0.65)
+    ),
+    url('../images/church.jpg') no-repeat center center / cover;
+}
+
+.support-card {
+  max-width: 450px;
+  margin: 40px auto;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  color: #333;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+}
+
+.support-card h1,
+.support-card p {
+  text-align: center;
+}
+
+.payment-form .form-group {
+  margin-bottom: 15px;
+}
+
+.payment-form label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.payment-form input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.pay-btn {
+  width: 100%;
+  padding: 12px;
+  background: #333;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  margin-top: 10px;
+  transition: background 0.2s;
+}
+
+.pay-btn:hover:not(:disabled) {
+  background: #000;
+}
+
+.pay-btn:disabled {
+  background: #888;
+  cursor: not-allowed;
+}
+
+/* ── Payment status message ── */
+.payment-message {
+  margin: 12px 0;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.payment-message.info {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+
+.payment-message.success {
+  background: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #86efac;
+}
+
+.payment-message.error {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fca5a5;
+}
+
+/* Secure Icons */
+.secure-icons {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.secure-icons img {
+  height: 28px;
+  margin: 0 6px;
+  opacity: 0.85;
+}

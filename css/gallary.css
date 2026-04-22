@@ -1,0 +1,63 @@
+/* ========================
+      GALLERY STYLING
+======================== */
+.gallery-container {
+  position: relative;
+  width: 80%;
+  max-width: 900px;
+  margin: 40px auto;
+  text-align: center;
+}
+
+.gallery-container img {
+  width: 100%;
+  max-height: 500px;
+  object-fit: contain;
+  background-color: #000;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0,0,0,0.5);
+  border: none;
+  color: white;
+  font-size: 2rem;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 50%;
+  user-select: none;
+}
+
+#prevBtn {
+  left: 10px;
+}
+
+#nextBtn {
+  right: 10px;
+}
+
+.nav-btn:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+.hero-section {
+  position: relative;
+  text-align: center;
+  padding: 40px 20px;
+  background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('images/church.mp4') no-repeat center center/cover;
+  color: #fff;
+}
+
+.hero-section .hero-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.hero-section .hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
